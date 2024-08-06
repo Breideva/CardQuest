@@ -1,5 +1,10 @@
 let deck; //initialize deck
 
+window.onload = function(){
+  makeDeck();
+  shuffleDeck();
+}
+
 function makeDeck(){
   var value = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
   var suit = ["H", "S", "C", "D"];

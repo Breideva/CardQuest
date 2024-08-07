@@ -1,9 +1,12 @@
 let deck; //initialize deck
+let drawCards = [];
+let btn;
 
 window.onload = function () {
   makeDeck();
   shuffleDeck();
   getCards();
+  drawFirst();
 };
 
 function makeDeck() {
@@ -29,7 +32,6 @@ function shuffleDeck() {
   return deck;
 }
 function getCards() {
-  let drawCards = [];
   for (let i = 0; i < 4; i++) {
     hidden = deck.pop();
     drawCards.push(hidden);
@@ -51,4 +53,44 @@ function getCards() {
   // document.getElementById("second").src = "./Playing-Cards/" + drawCards[1] + ".avif";
   // document.getElementById("third").src = "./Playing-Cards/" + drawCards[2] + ".avif";
   // document.getElementById("fourth").src = "./Playing-Cards/" + drawCards[3] + ".avif";
+}
+
+function drawFirst() {
+  let faceCards = ["J", "Q", "K", "A"];
+  let btnContainer = document.getElementById("button-area");
+  let question = document.createElement("h2");
+  document.getElementById("question-area").append(question);
+  question.innerText = "What is the card's value?";
+
+  for (let i = 2; i <= 10; i++) {
+    let btn = document.createElement("button");
+    document.getElementById("button-area").append(btn);
+    btn.innerText = i;
+    btnContainer.append(btn);
+    btn.addEventListener("click", () => firstCard(btn, question, i));
+  }
+
+  faceCards.forEach((faceCard) => {
+    let btn = document.createElement("button");
+    btn.innerText = faceCard;
+    btnContainer.append(btn);
+    btn.addEventListener("click", () => firstCard(btn, question, faceCard));
+  });
+}
+
+function firstCard(btn, question) {
+  document.getElementById("first").src =
+    "./Playing-Cards/" + drawCards[0] + ".avif";
+  cardValue = drawCards[0].split("-");
+  console.log(cardValue)
+  let buttonContainer = document.getElementById("button-area");
+  while (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild);
+  }
+  question.remove();
+  if (btn.innerText === cardValue[1]) {
+    document.getElementById("results").append("Correct");
+  } else {
+    document.getElementById("results").append("Incorrect");
+  }
 }

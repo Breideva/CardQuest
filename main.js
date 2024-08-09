@@ -81,16 +81,66 @@ function drawFirst() {
 function firstCard(btn, question) {
   document.getElementById("first").src =
     "./Playing-Cards/" + drawCards[0] + ".avif";
-  cardValue = drawCards[0].split("-");
-  console.log(cardValue)
+  firstCard = drawCards[0];
+  let firstCardValue = getCardValue(firstCard);
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
   }
   question.remove();
-  if (btn.innerText === cardValue[1]) {
-    document.getElementById("results").append("Correct");
+  if (btn.innerText === firstCard[2]) {
+    document.getElementById("first").style.backgroundColor = "green";
   } else {
-    document.getElementById("results").append("Incorrect");
+    document.getElementById("first").style.backgroundColor = "red";
   }
+  drawSecond(firstCardValue);
+}
+
+function drawSecond(firstCardValue) {
+  let answers = ["Higher", "Lower"];
+  let btnContainer = document.getElementById("button-area");
+  let question = document.createElement("h2");
+  document.getElementById("question-area").append(question);
+  question.innerText = "Is the cards value higher or lower?";
+
+  answers.forEach((answer) => {
+    let btn = document.createElement("button");
+    btn.innerText = answer;
+    btnContainer.append(btn);
+    btn.addEventListener("click", () =>
+      secondCard(firstCardValue, question, answer)
+    );
+  });
+}
+function secondCard(firstCardValue, question, answer) {
+  let secondCard = drawCards[1];
+  question.remove();
+  let secondCardValue = getCardValue(secondCard);
+  document.getElementById("second").src =
+    "./Playing-Cards/" + drawCards[1] + ".avif";
+
+  let buttonContainer = document.getElementById("button-area");
+  while (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild);
+  }
+  let isHigher = secondCardValue >= firstCardValue; //if both values are the same Higher is correct
+  let correctAnswer = isHigher ? "Higher" : "Lower";
+
+  if (answer === correctAnswer) {
+    document.getElementById("second").style.backgroundColor = "green";
+  } else {
+    document.getElementById("second").style.backgroundColor = "red";
+  }
+}
+
+function getCardValue(card) {
+  let result = card.split("-")[1];
+
+  let faceCard = {
+    J: 11,
+    Q: 12,
+    K: 13,
+    A: 14,
+  };
+  return faceCard[result] || parseInt(result);
 }

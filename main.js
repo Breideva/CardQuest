@@ -174,7 +174,56 @@ function thirdCard(firstCardValue, question, answer, secondCardValue) {
   } else {
     document.getElementById("third").style.backgroundColor = "red";
   }
+  drawFourth();
+
 }
+function drawFourth() {
+  let answers = ["Clubs", "Diamonds", "Hearts", "Spades"];
+  let btnContainer = document.getElementById("button-area");
+  let question = document.createElement("h2");
+  document.getElementById("question-area").append(question);
+  question.innerText = "What's the card's suit?";
+
+  answers.forEach((answer) => {
+    let btn = document.createElement("button");
+    btn.innerText = answer;
+    btnContainer.append(btn);
+    btn.addEventListener("click", () =>
+      fourthCard(question, answer)
+    );
+  });
+}
+function fourthCard(question, answer) {
+  let fourthCard = drawCards[3];
+
+  question.remove();
+
+  document.getElementById("fourth").src =
+    "./Playing-Cards/" + drawCards[3] + ".avif";
+
+  let buttonContainer = document.getElementById("button-area");
+  while (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild);
+  }
+
+  let getSuit = fourthCard.split("-")[0];
+
+  let suitNames = {
+    "C": "Clubs",
+    "D": "Diamonds",
+    "H": "Hearts",
+    "S": "Spades",
+  }
+
+  let correctAnswer = suitNames[getSuit];
+
+  if (answer === correctAnswer) {
+    document.getElementById("fourth").style.backgroundColor = "green";
+  } else {
+    document.getElementById("fourth").style.backgroundColor = "red";
+  }
+}
+
 function getCardValue(card) {
   let result = card.split("-")[1];
 

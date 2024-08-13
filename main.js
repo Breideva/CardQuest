@@ -108,7 +108,7 @@ function drawSecond(firstCardValue) {
     btn.innerText = answer;
     btnContainer.append(btn);
     btn.addEventListener("click", () =>
-      secondCard(firstCardValue, question, answer)
+      secondCard(firstCardValue, question, answer,)
     );
   });
 }
@@ -131,8 +131,50 @@ function secondCard(firstCardValue, question, answer) {
   } else {
     document.getElementById("second").style.backgroundColor = "red";
   }
+
+  drawThird(firstCardValue, secondCardValue)
 }
 
+function drawThird(firstCardValue, secondCardValue) {
+  let answers = ["In Between", "Outside"];
+  let btnContainer = document.getElementById("button-area");
+  let question = document.createElement("h2");
+  document.getElementById("question-area").append(question);
+  question.innerText = "Is the cards value higher or lower?";
+
+  answers.forEach((answer) => {
+    let btn = document.createElement("button");
+    btn.innerText = answer;
+    btnContainer.append(btn);
+    btn.addEventListener("click", () =>
+      thirdCard(firstCardValue, question, answer, secondCardValue)
+    );
+  });
+}
+function thirdCard(firstCardValue, question, answer, secondCardValue) {
+  let thirdCard = drawCards[2];
+  question.remove();
+  let thirdCardValue = getCardValue(thirdCard);
+
+  document.getElementById("third").src =
+    "./Playing-Cards/" + drawCards[2] + ".avif";
+
+  let buttonContainer = document.getElementById("button-area");
+  while (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild);
+  }
+
+  let minValue = Math.min(secondCardValue, firstCardValue);
+  let maxValue = Math.max(secondCardValue, firstCardValue);
+  
+  let correctAnswer = (thirdCardValue >= minValue && thirdCardValue <= maxValue) ? "In Between" : "Outside";
+
+  if (answer === correctAnswer) {
+    document.getElementById("third").style.backgroundColor = "green";
+  } else {
+    document.getElementById("third").style.backgroundColor = "red";
+  }
+}
 function getCardValue(card) {
   let result = card.split("-")[1];
 

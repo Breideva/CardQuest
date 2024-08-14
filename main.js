@@ -2,6 +2,8 @@ let deck; //initialize deck
 let drawCards = [];
 let btn;
 
+
+
 window.onload = function () {
   makeDeck();
   shuffleDeck();
@@ -60,7 +62,20 @@ function drawFirst() {
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = "What is the card's value?";
+  question.innerText = "What's the card's value ?";
+  gsap.to("#first-arrow", {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: .4,
+    ease: "power4.in",
+  })
+  gsap.to("#created-content", {
+    opacity: 1,
+    duration: 1,
+    ease: "power2.inOut",
+    translateY: 0,
+  })
+
+
 
   for (let i = 2; i <= 10; i++) {
     let btn = document.createElement("button");
@@ -79,8 +94,22 @@ function drawFirst() {
 }
 
 function firstCard(btn, question) {
-  document.getElementById("first").src =
-    "./Playing-Cards/" + drawCards[0] + ".avif";
+  gsap.to("#first", {
+    rotateY: "85",
+    duration: .2,
+    onComplete: () => {
+      gsap.to("#first", {
+        rotateY: "5",
+      })
+      document.getElementById("first").src = `./Playing-Cards/${drawCards[0]}.avif`;
+    }
+  })
+  gsap.to("#first-arrow", {
+    clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    duration: .3,
+    ease: "power1.out",
+  })
+  
   firstCard = drawCards[0];
   let firstCardValue = getCardValue(firstCard);
   let buttonContainer = document.getElementById("button-area");
@@ -88,11 +117,14 @@ function firstCard(btn, question) {
     buttonContainer.removeChild(buttonContainer.firstChild);
   }
   question.remove();
+
+
   if (btn.innerText === firstCard[2]) {
     document.getElementById("first").style.backgroundColor = "green";
   } else {
     document.getElementById("first").style.backgroundColor = "red";
   }
+
   drawSecond(firstCardValue);
 }
 
@@ -101,7 +133,18 @@ function drawSecond(firstCardValue) {
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = "Is the cards value higher or lower?";
+  question.innerText = `Is the cards value higher or lower than ${firstCardValue} ?`;
+  gsap.to("#second-arrow", {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: .4,
+    ease: "power1.out",
+  })
+  gsap.from("#created-content", {
+    opacity: 0,
+    duration: 1,
+    ease: "power2.inOut",
+    translateY: 250,
+  })
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
@@ -114,11 +157,26 @@ function drawSecond(firstCardValue) {
 }
 function secondCard(firstCardValue, question, answer) {
   let secondCard = drawCards[1];
+  let secondCardType = secondCard.split("-")[1]
+  console.log(secondCardType)
   question.remove();
-  let secondCardValue = getCardValue(secondCard);
-  document.getElementById("second").src =
-    "./Playing-Cards/" + drawCards[1] + ".avif";
+  gsap.to("#second", {
+    rotateY: "85",
+    duration: .2,
+    onComplete: () => {
+      gsap.to("#second", {
+        rotateY: "5",
+      })
+      document.getElementById("second").src = `./Playing-Cards/${drawCards[1]}.avif`;
+    }
+  })
+  gsap.to("#second-arrow", {
+    clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    duration: .3,
+    ease: "power1.out",
+  })
 
+  let secondCardValue = getCardValue(secondCard);
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -131,16 +189,26 @@ function secondCard(firstCardValue, question, answer) {
   } else {
     document.getElementById("second").style.backgroundColor = "red";
   }
-
-  drawThird(firstCardValue, secondCardValue)
+  drawThird(firstCardValue, secondCardValue, secondCardType)
 }
 
-function drawThird(firstCardValue, secondCardValue) {
+function drawThird(firstCardValue, secondCardValue, secondCardType) {
   let answers = ["In Between", "Outside"];
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = "Is the cards value higher or lower?";
+  question.innerText = `Is the cards value In between or outside ${firstCardValue} / ${secondCardType} ?`;
+  gsap.to("#third-arrow", {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: .4,
+    ease: "power1.out",
+  })
+  gsap.from("#created-content", {
+    opacity: 0,
+    duration: 1,
+    ease: "power2.inOut",
+    translateY: 250,
+  })
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
@@ -154,11 +222,24 @@ function drawThird(firstCardValue, secondCardValue) {
 function thirdCard(firstCardValue, question, answer, secondCardValue) {
   let thirdCard = drawCards[2];
   question.remove();
+
   let thirdCardValue = getCardValue(thirdCard);
 
-  document.getElementById("third").src =
-    "./Playing-Cards/" + drawCards[2] + ".avif";
-
+  gsap.to("#third", {
+    rotateY: "85",
+    duration: .2,
+    onComplete: () => {
+      gsap.to("#third", {
+        rotateY: "5",
+      })
+      document.getElementById("third").src = `./Playing-Cards/${drawCards[2]}.avif`;
+    }
+  })
+  gsap.to("#third-arrow", {
+    clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    duration: .3,
+    ease: "power1.out",
+  })
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -182,7 +263,18 @@ function drawFourth() {
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = "What's the card's suit?";
+  question.innerText = "What's the card's suit ?";
+  gsap.to("#fourth-arrow", {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: .4,
+    ease: "power1.out",
+  })
+  gsap.from("#created-content", {
+    opacity: 0,
+    duration: 1,
+    ease: "power2.inOut",
+    translateY: 250,
+  })
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
@@ -198,9 +290,21 @@ function fourthCard(question, answer) {
 
   question.remove();
 
-  document.getElementById("fourth").src =
-    "./Playing-Cards/" + drawCards[3] + ".avif";
-
+  gsap.to("#fourth", {
+    rotateY: "85",
+    duration: .2,
+    onComplete: () => {
+      gsap.to("#fourth", {
+        rotateY: "5",
+      })
+      document.getElementById("fourth").src = `./Playing-Cards/${drawCards[3]}.avif`;
+    }
+  })
+  gsap.to("#fourth-arrow", {
+    clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    duration: .3,
+    ease: "power1.out",
+  })
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);

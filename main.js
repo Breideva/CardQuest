@@ -2,9 +2,11 @@ let deck; //initialize deck
 let drawCards = [];
 let btn;
 
+window.onload = function beginGame(){
+  playGame();
+}
 
-
-window.onload = function () {
+function playGame() {
   makeDeck();
   shuffleDeck();
   getCards();
@@ -56,7 +58,6 @@ function getCards() {
   // document.getElementById("third").src = "./Playing-Cards/" + drawCards[2] + ".avif";
   // document.getElementById("fourth").src = "./Playing-Cards/" + drawCards[3] + ".avif";
 }
-
 function drawFirst() {
   let faceCards = ["J", "Q", "K", "A"];
   let btnContainer = document.getElementById("button-area");
@@ -68,11 +69,11 @@ function drawFirst() {
     duration: .4,
     ease: "power4.in",
   })
-  gsap.to("#created-content", {
-    opacity: 1,
-    duration: 1,
+  gsap.from("#created-content", {
+    opacity: 0,
+    duration: .5,
     ease: "power2.inOut",
-    translateY: 0,
+    translateY: 250,
   })
 
 
@@ -110,8 +111,8 @@ function firstCard(btn, question) {
     ease: "power1.out",
   })
   
-  firstCard = drawCards[0];
-  let firstCardValue = getCardValue(firstCard);
+  firstActualCard = drawCards[0];
+  let firstCardValue = getCardValue(firstActualCard);
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -119,7 +120,7 @@ function firstCard(btn, question) {
   question.remove();
 
 
-  if (btn.innerText === firstCard[2]) {
+  if (btn.innerText === firstActualCard[2]) {
     document.getElementById("first").style.backgroundColor = "green";
   } else {
     document.getElementById("first").style.backgroundColor = "red";
@@ -141,7 +142,7 @@ function drawSecond(firstCardValue) {
   })
   gsap.from("#created-content", {
     opacity: 0,
-    duration: 1,
+    duration: .5,
     ease: "power2.inOut",
     translateY: 250,
   })
@@ -156,9 +157,8 @@ function drawSecond(firstCardValue) {
   });
 }
 function secondCard(firstCardValue, question, answer) {
-  let secondCard = drawCards[1];
-  let secondCardType = secondCard.split("-")[1]
-  console.log(secondCardType)
+  let secondActualCard = drawCards[1];
+  let secondCardType = secondActualCard.split("-")[1]
   question.remove();
   gsap.to("#second", {
     rotateY: "85",
@@ -176,7 +176,7 @@ function secondCard(firstCardValue, question, answer) {
     ease: "power1.out",
   })
 
-  let secondCardValue = getCardValue(secondCard);
+  let secondCardValue = getCardValue(secondActualCard);
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -205,7 +205,7 @@ function drawThird(firstCardValue, secondCardValue, secondCardType) {
   })
   gsap.from("#created-content", {
     opacity: 0,
-    duration: 1,
+    duration: .5,
     ease: "power2.inOut",
     translateY: 250,
   })
@@ -220,10 +220,10 @@ function drawThird(firstCardValue, secondCardValue, secondCardType) {
   });
 }
 function thirdCard(firstCardValue, question, answer, secondCardValue) {
-  let thirdCard = drawCards[2];
+  let thirdActualCard = drawCards[2];
   question.remove();
 
-  let thirdCardValue = getCardValue(thirdCard);
+  let thirdCardValue = getCardValue(thirdActualCard);
 
   gsap.to("#third", {
     rotateY: "85",
@@ -271,7 +271,7 @@ function drawFourth() {
   })
   gsap.from("#created-content", {
     opacity: 0,
-    duration: 1,
+    duration: .5,
     ease: "power2.inOut",
     translateY: 250,
   })
@@ -286,7 +286,7 @@ function drawFourth() {
   });
 }
 function fourthCard(question, answer) {
-  let fourthCard = drawCards[3];
+  let fourthActualCard = drawCards[3];
 
   question.remove();
 
@@ -310,7 +310,7 @@ function fourthCard(question, answer) {
     buttonContainer.removeChild(buttonContainer.firstChild);
   }
 
-  let getSuit = fourthCard.split("-")[0];
+  let getSuit = fourthActualCard.split("-")[0];
 
   let suitNames = {
     "C": "Clubs",
@@ -326,7 +326,65 @@ function fourthCard(question, answer) {
   } else {
     document.getElementById("fourth").style.backgroundColor = "red";
   }
+  setupRestartButton()
 }
+function setupRestartButton() {
+  let btnContainer = document.getElementById("button-area");
+  let question = document.createElement("h2");
+  document.getElementById("question-area").append(question);
+  question.innerText = "Wanna play again ?";
+  let btn = document.createElement("button");
+  btn.innerText = "Restart";
+  btnContainer.append(btn);
+  gsap.from("#created-content", {
+    opacity: 0,
+    duration: .5,
+    ease: "power2.inOut",
+    translateY: 250,
+  })
+    
+  btn.addEventListener("click", function() {
+    // Clear existing game elements
+    clearGame();
+    //Reset Deck
+    drawCards = [];
+    // Start a new game
+    playGame();
+  });
+}
+
+function clearGame() {
+  let cardElements = document.querySelectorAll("#first, #second, #third, #fourth");
+  let arrowElements = document.querySelectorAll("#first-arrow, #second-arrow, #third-arrow, #fourth-arrow");
+  arrowElements.forEach(el => {
+    el.style.clipPath = "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)"
+  })
+  cardElements.forEach(el =>
+    {gsap.to(el, {
+    rotateY: "85",
+    duration: .2,
+    onComplete: () => {
+      gsap.to(el, {
+        rotateY: "5",
+      })
+      el.src = "Extras/BACK.avif"; 
+    }
+  })
+    el.style.backgroundColor = ""; 
+  });
+  
+  let buttonContainer = document.getElementById("button-area");
+  while (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild);
+  }
+  
+  let questionContainer = document.getElementById("question-area");
+  while (questionContainer.firstChild) {
+    questionContainer.removeChild(questionContainer.firstChild);
+  }
+}
+
+
 
 function getCardValue(card) {
   let result = card.split("-")[1];
@@ -339,3 +397,4 @@ function getCardValue(card) {
   };
   return faceCard[result] || parseInt(result);
 }
+

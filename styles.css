@@ -58,6 +58,7 @@ clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   margin: 20px;
   border-radius: 10px;
   transform:translateY(0);
+  width: 100%;
 }
 #question-area {
   display: flex;
@@ -65,7 +66,6 @@ clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   margin: 0 0 20px 0;
   border-radius: 10px 10px 0 0;
   border-bottom: #f8eaea solid 2px;
-  width: 50vw;
 }
 #question-area h2 {
   font-size: 2.5vw;
@@ -97,9 +97,9 @@ clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
 #button-area button:hover {
   background-color:rgb(240, 248, 234, 0.5);
   border: none;
-  border-bottom: rgb(255, 0, 0) solid 2px;
+  border-bottom: rgb(255, 0, 0) solid 3px;
 }
 #button-area button:active {
   border: none;
-  border-bottom: white solid 2px;
+  border-bottom: white solid 3px;
 }

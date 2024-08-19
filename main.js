@@ -5,11 +5,24 @@ let points = 0;
 
 window.onload = function beginGame(){
   gsap.to("#body", {
-    clipPath: "circle(70.7% at 50% 50%)",
-    duration: 1.2,
-    ease: "power2.in",
+    clipPath: "circle(100% at 50% 50%)",
+    duration: 4,
+    ease: "power2.out",
+  });
+  document.getElementById("start-btn").addEventListener("click", () => (changePage()))
+}
+
+function changePage(){
+  gsap.to("#first-page", {
+    clipPath: "circle(0% at 50% 50%)",
+    duration: 2,
   })
-  playGame();
+  gsap.to("#all-content", {
+    clipPath: "circle(100% at 50% 50%)",
+    duration: 2,
+    ease: "power2.out",
+  })
+  playGame()
 }
 
 function playGame() {

@@ -9,25 +9,97 @@
     <title>Ride The Bus</title>
   </head>
   <body id="body">
+    <div id="first-page">
+      <h1>Card<span>Quest</span></h1>
+      <div>
+        <h2>Rules & Gameplay</h2>
+        <ul>
+          <li>
+            A standard 52-card deck is shuffled, and four cards are drawn. In
+            each round, a hidden card is revealed, and you must predict specific
+            attributes of the card.
+          </li>
+          <li>
+            Correct answers award 2 points. Incorrect answers award 0 points.
+            The total score is displayed after each round.
+          </li>
+          <li>
+            After the fourth card, players can choose to restart the game and
+            play again with a reshuffled deck.
+          </li>
+          <li>
+            After 10 rounds, your final score is tallied. Keep pushing to beat
+            your high score each time you play!
+          </li>
+          <ul>
+            <h2>Rounds</h2>
+            <li>
+              <span>First Card</span> - Culor Guess: The player guesses the
+              culor of the first card (Red or Black). Points: +2 points for a
+              correct guess.
+            </li>
+            <li>
+              <span>Second Card</span> - Higher or Lower: The player guesses
+              whether the second card’s value is higher or lower than the first
+              card. Points: +2 points for a correct guess.
+            </li>
+            <li>
+              <span>Third Card</span> - In Between or Outside: The player
+              guesses whether the value of the third card is between or outside
+              the values of the first two cards. Points: +2 points for a correct
+              guess.
+            </li>
+            <li>
+              <span>Fourth Card</span> - Suit Guess: The player guesses the suit
+              of the fourth card (Clubs, Diamonds, Hearts, Spades). Points: +2
+              points for a correct guess.
+            </li>
+          </ul>
+        </ul>
+      </div>
+      <div>
+        <button id="start-btn">Start Game</button>
+      </div>
+    </div>
     <div id="all-content">
       <div>
-      <div id="cards">
-        <div class="card">
-        <img id="first-arrow" class="arrow" src="./Extras/Arrow.png" alt="">
-        <img id="first" src="./Extras/BACK.avif" alt="" />
-        </div>
-        <div class="card">
-        <img id="second-arrow" class="arrow" src="./Extras/Arrow.png" alt="">
-        <img id="second" src="./Extras/BACK.avif" alt="" />
-        </div>
-        <div class="card">
-        <img id="third-arrow" class="arrow" src="./Extras/Arrow.png" alt="">
-        <img id="third" src="./Extras/BACK.avif" alt="" />
-        </div>
-        <div class="card">
-        <img id="fourth-arrow" class="arrow" src="./Extras/Arrow.png" alt="">
-        <img id="fourth" src="./Extras/BACK.avif" alt="" />
-        </div>
+        <div id="cards">
+          <div class="card">
+            <img
+              id="first-arrow"
+              class="arrow"
+              src="./Extras/Arrow.png"
+              alt=""
+            />
+            <img id="first" src="./Extras/BACK.avif" alt="" />
+          </div>
+          <div class="card">
+            <img
+              id="second-arrow"
+              class="arrow"
+              src="./Extras/Arrow.png"
+              alt=""
+            />
+            <img id="second" src="./Extras/BACK.avif" alt="" />
+          </div>
+          <div class="card">
+            <img
+              id="third-arrow"
+              class="arrow"
+              src="./Extras/Arrow.png"
+              alt=""
+            />
+            <img id="third" src="./Extras/BACK.avif" alt="" />
+          </div>
+          <div class="card">
+            <img
+              id="fourth-arrow"
+              class="arrow"
+              src="./Extras/Arrow.png"
+              alt=""
+            />
+            <img id="fourth" src="./Extras/BACK.avif" alt="" />
+          </div>
         </div>
         <div id="point-box">
           <h3>Points:</h3>
@@ -35,8 +107,8 @@
         </div>
       </div>
       <div id="created-content">
-      <div id="question-area"></div>
-      <div id="button-area"></div>
+        <div id="question-area"></div>
+        <div id="button-area"></div>
       </div>
     </div>
   </body>

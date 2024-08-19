@@ -8,12 +8,70 @@ body {
   align-items: center;
   overflow-y: hidden;
   clip-path: circle(0% at 50% 50%);
+  position: relative;
+}
+#first-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 70%;
+  color: #f8eaea;
+  visibility: visible;
+}
+#first-page h1{
+  font-size: clamp(16px, 4vw, 80px);
+  width: 30%;
+  text-align: center;
+  margin: 0;
+  color: black;
+  box-shadow: 1px 4px 8px black;
+  padding: 5px;
+}
+#first-page h1 span {
+  color: red;
+}
+#first-page h2 {
+  font-weight: 500;
+  font-size: clamp(16px, 2vw, 40px);
+  margin: 15px 0;
+}
+#first-page li {
+  font-weight: 100;
+  font-size: clamp(12px, 1.2vw, 30px);
+  margin: 10px 0;
+}
+#first-page ol span {
+  font-weight: 400;
+  text-decoration: underline;
+}
+#first-page button {
+  padding: 15px;
+  font-size: clamp(8px, 1.8vw, 60px);
+  border-radius: 10px;
+  border: none;
+  border-bottom: black solid 3px;
+  text-align: center;
+  transition: all .2s linear;
+  background-color:rgb(240, 248, 234);
+  margin-top: clamp(10px, 1vw, 30px);
+}
+#first-page button:hover {
+  background-color:rgb(240, 248, 234, 0.5);
+  border: none;
+  border-bottom: rgb(255, 0, 0) solid 3px;
+}
+#first-page button:active {
+  border: none;
+  border-bottom: white solid 3px;
 }
 #all-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  clip-path: circle(0% at 50% 50%);
 }
 #cards {
   display: flex;
@@ -59,9 +117,8 @@ clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   justify-content: end;
   flex-direction: column;
 }
-#point-box
-h3,
-p {
+#point-box h3, 
+#point-box p {
 font-size: clamp(16px, 2vw, 40px);
 color:#f8eaea;
 font-weight: 200;

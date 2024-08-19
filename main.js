@@ -1,8 +1,14 @@
 let deck; //initialize deck
 let drawCards = [];
 let btn;
+let points = 0;
 
 window.onload = function beginGame(){
+  gsap.to("#body", {
+    clipPath: "circle(70.7% at 50% 50%)",
+    duration: 1.2,
+    ease: "power2.in",
+  })
   playGame();
 }
 
@@ -158,7 +164,6 @@ function firstCard(btn, question, color) {
   } else {
     document.getElementById("first").style.backgroundColor = "red";
   }
-
   drawSecond(firstCardValue);
 }
 function drawSecond(firstCardValue) {
@@ -357,6 +362,7 @@ function fourthCard(question, answer) {
   } else {
     document.getElementById("fourth").style.backgroundColor = "red";
   }
+  pointCounter()
   setupRestartButton()
 }
 function setupRestartButton() {
@@ -412,6 +418,29 @@ function clearGame() {
   while (questionContainer.firstChild) {
     questionContainer.removeChild(questionContainer.firstChild);
   }
+}
+function pointCounter(){
+  let cardElements = document.querySelectorAll("#first, #second, #third, #fourth");
+
+  cardElements.forEach(card => {
+    cardResult = card.style.backgroundColor;
+
+    if(cardResult === "green"){
+      points += 2
+      console.log("correct")
+    } else {
+      points += 0
+    }
+
+    document.getElementById("points").innerText = points
+
+      // if(points >= 5){
+      //   document.getElementById("body").style.backgroundImage = "url(./Extras/background-2.png)";
+      //   console.log("hello")
+      // }
+
+    })
+    
 }
 function getCardValue(card) {
   let result = card.split("-")[1];

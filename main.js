@@ -112,6 +112,9 @@ function getCards() {
 // }
 function drawFirst() {
   let colors = ["Red", "Black"];
+  firstActualCard = drawCards[0];
+  let firstCardType = firstActualCard.split("-")[1];
+  console.log(firstCardType)
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
@@ -132,10 +135,10 @@ function drawFirst() {
     let btn = document.createElement("button");
     btn.innerText = color;
     btnContainer.append(btn);
-    btn.addEventListener("click", () => firstCard(btn, question, color));
+    btn.addEventListener("click", () => firstCard(firstActualCard, btn, question, color, firstCardType));
   });
 }
-function firstCard(btn, question, color) {
+function firstCard(firstActualCard, btn, question, color, firstCardType) {
   gsap.to("#first", {
     rotateY: "85",
     duration: .2,
@@ -151,8 +154,7 @@ function firstCard(btn, question, color) {
     duration: .3,
     ease: "power1.out",
   })
-  
-  firstActualCard = drawCards[0];
+  console.log(firstCardType)
 
   let firstCardValue = getCardValue(firstActualCard);
   let buttonContainer = document.getElementById("button-area");
@@ -177,14 +179,14 @@ function firstCard(btn, question, color) {
   } else {
     document.getElementById("first").style.backgroundColor = "red";
   }
-  drawSecond(firstCardValue);
+  drawSecond(firstCardValue, firstActualCard, firstCardType);
 }
-function drawSecond(firstCardValue) {
+function drawSecond(firstCardValue, firstCardType, firstCardType) {
   let answers = ["Higher", "Lower"];
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = `Is the cards value higher or lower than ${firstCardValue} ?`;
+  question.innerText = `Is the cards value higher or lower than ${firstCardType} ?`;
   gsap.to("#second-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
     duration: .4,
@@ -202,11 +204,11 @@ function drawSecond(firstCardValue) {
     btn.innerText = answer;
     btnContainer.append(btn);
     btn.addEventListener("click", () =>
-      secondCard(firstCardValue, question, answer,)
+      secondCard(firstCardValue, question, answer, firstCardType)
     );
   });
 }
-function secondCard(firstCardValue, question, answer) {
+function secondCard(firstCardValue, question, answer, firstCardType) {
   let secondActualCard = drawCards[1];
   let secondCardType = secondActualCard.split("-")[1]
   question.remove();
@@ -239,14 +241,14 @@ function secondCard(firstCardValue, question, answer) {
   } else {
     document.getElementById("second").style.backgroundColor = "red";
   }
-  drawThird(firstCardValue, secondCardValue, secondCardType)
+  drawThird(firstCardValue, secondCardValue, secondCardType, firstCardType)
 }
-function drawThird(firstCardValue, secondCardValue, secondCardType) {
-  let answers = ["In Between", "Outside"];
+function drawThird(firstCardValue, secondCardValue, secondCardType, firstCardType) {
+  let answers = ["Between", "Outside"];
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
-  question.innerText = `Is the cards value In between or outside ${firstCardValue} / ${secondCardType} ?`;
+  question.innerText = `Is the cards value between or outside ${firstCardType} / ${secondCardType} ?`;
   gsap.to("#third-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
     duration: .4,
@@ -297,7 +299,7 @@ function thirdCard(firstCardValue, question, answer, secondCardValue) {
   let minValue = Math.min(secondCardValue, firstCardValue);
   let maxValue = Math.max(secondCardValue, firstCardValue);
   
-  let correctAnswer = (thirdCardValue >= minValue && thirdCardValue <= maxValue) ? "In Between" : "Outside";
+  let correctAnswer = (thirdCardValue >= minValue && thirdCardValue <= maxValue) ? "Between" : "Outside";
 
   if (answer === correctAnswer) {
     document.getElementById("third").style.backgroundColor = "green";

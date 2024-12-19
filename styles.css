@@ -1,7 +1,8 @@
 body {
-  background-image: url("./Extras/background.png");
+  background-image: url("./Extras/bg.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -16,32 +17,40 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 70%;
+  width: 80%;
   color: #f8eaea;
   visibility: visible;
 }
-#first-page h1{
-  font-size: clamp(16px, 4vw, 80px);
-  width: 30%;
+#first-page h1,
+#all-content h1 {
+  cursor: default;
+  font-size: clamp(32px, 5vw, 90px);
   text-align: center;
   margin: 0;
   color: black;
   box-shadow: 1px 4px 8px black;
   padding: 5px;
+  transition: all 0.5s linear;
 }
-#first-page h1 span {
+#first-page h1:hover {
+  scale: 105%;
+}
+#first-page h1 span,
+#all-content h1 span {
   color: red;
 }
-#first-page h2 {
+#first-page h2,
+#all-content h2 {
   font-weight: 500;
   font-size: clamp(20px, 2.5vw, 60px);
   margin: 15px 0;
 }
 #first-page li {
   font-weight: 100;
-  font-size: clamp(12px, 1.2vw, 30px);
-  margin: 10px 0;
+  font-size: clamp(12px, 1.3vw, 30px);
+  margin: 0px 0;
 }
+
 #first-page li span {
   font-weight: 400;
   text-decoration: underline;
@@ -53,13 +62,12 @@ body {
   border: none;
   border-bottom: black solid 3px;
   text-align: center;
-  transition: all .2s linear;
-  background-color:rgb(240, 248, 234);
+  transition: all 0.5s linear;
+  background-color: rgb(240, 248, 234);
   margin-top: clamp(10px, 1vw, 30px);
   cursor: pointer;
 }
 #first-page button:hover {
-  background-color:rgb(240, 248, 234, 0.5);
   border: none;
   border-bottom: rgb(255, 0, 0) solid 3px;
 }
@@ -75,11 +83,12 @@ body {
   clip-path: circle(0% at 50% 50%);
 }
 #cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
   align-items: center;
   gap: 2vw;
-  padding: .5vw 2vw 2vw 2vw;
+  padding: 0.5vw 2vw 2vw 2vw;
   margin: 1vw 0;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0.1);
@@ -91,11 +100,10 @@ body {
   align-items: center;
 }
 #cards .arrow {
-width: 3vw;  
-clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  width: 3vw;
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
 }
-#cards
-#first,
+#cards #first,
 #second,
 #third,
 #fourth {
@@ -105,44 +113,42 @@ clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   border-radius: clamp(5px, 1.2vw, 20px);
   pointer-events: none;
   -webkit-user-drag: none;
-  user-select: none; 
+  user-select: none;
   margin-top: 5px;
 }
-#point-box{
+#point-box {
   background-color: rgb(255, 255, 255, 0.1);
   border-radius: 10px;
   margin-top: 20px;
-  padding: 1vw;
+  padding: .5vw;
   display: flex;
   align-items: center;
   justify-content: end;
   flex-direction: column;
 }
-#point-box h3, 
+#point-box h3,
 #point-box p {
-font-size: clamp(16px, 2vw, 40px);
-color:#f8eaea;
-font-weight: 200;
-margin: 0;
+  font-size: clamp(16px, 2vw, 40px);
+  color: #f8eaea;
+  font-weight: 200;
+  margin: 0;
 }
 #created-content {
   background-color: rgb(255, 255, 255, 0.1);
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 20px;
   border-radius: 10px;
-  transform:translateY(0);
+  transform: translateY(0);
   width: 100%;
 }
 #question-area {
   display: flex;
   justify-content: center;
-  margin: 0 0 20px 0;
   border-radius: 10px 10px 0 0;
   border-bottom: #f8eaea solid 1.5px;
-  
 }
 #question-area h2 {
   font-size: clamp(20px, 2.5vw, 200px);
@@ -169,16 +175,26 @@ margin: 0;
   border: none;
   border-bottom: black solid 3px;
   text-align: center;
-  transition: all .2s linear;
-  background-color:rgb(240, 248, 234);
+  transition: all 0.2s linear;
+  background-color: rgb(240, 248, 234);
   cursor: pointer;
 }
 #button-area button:hover {
-  background-color:rgb(240, 248, 234, 0.5);
   border: none;
   border-bottom: rgb(255, 0, 0) solid 3px;
 }
 #button-area button:active {
   border: none;
   border-bottom: white solid 3px;
+}
+@media (max-width: 425px) {
+  #cards {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 4vw;
+    gap: 4vw;
+    margin-top: 4vw;
+  }
+  #first-page {
+    width: 85%;
+  }
 }

@@ -1,28 +1,30 @@
-let deck; //initialize deck
+let deck;
 let drawCards = [];
 let btn;
 let points = 0;
 
-window.onload = function beginGame(){
+window.onload = function beginGame() {
   gsap.to("#body", {
     clipPath: "circle(100% at 50% 50%)",
     duration: 4,
     ease: "power2.out",
   });
-  document.getElementById("start-btn").addEventListener("click", () => (changePage()))
-}
+  document
+    .getElementById("start-btn")
+    .addEventListener("click", () => changePage());
+};
 
-function changePage(){
+function changePage() {
   gsap.to("#first-page", {
     clipPath: "circle(0% at 50% 50%)",
     duration: 2,
-  })
+  });
   gsap.to("#all-content", {
     clipPath: "circle(100% at 50% 50%)",
     duration: 2,
     ease: "power2.out",
-  })
-  playGame()
+  });
+  playGame();
 }
 
 function playGame() {
@@ -30,11 +32,11 @@ function playGame() {
   shuffleDeck();
   getCards();
   drawFirst();
-};
+}
 function makeDeck() {
   var value = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
   var suit = ["H", "S", "C", "D"];
-  deck = []; // Start with empty array
+  deck = [];
 
   for (let i = 0; i < value.length; i++) {
     for (let j = 0; j < suit.length; j++) {
@@ -46,7 +48,7 @@ function makeDeck() {
 function shuffleDeck() {
   for (let i = 0; i < deck.length; i++) {
     let j = Math.floor(Math.random() * deck.length);
-    let temp = deck[i]; // Mixes the cards around
+    let temp = deck[i];
     deck[i] = deck[j];
     deck[j] = temp;
   }
@@ -69,92 +71,56 @@ function getCards() {
   second.dataset.value = drawCards[1];
   third.dataset.value = drawCards[2];
   fourth.dataset.value = drawCards[3];
-
-  // document.getElementById("first").src = "./Playing-Cards/" + drawCards[0] + ".avif";
-  // document.getElementById("second").src = "./Playing-Cards/" + drawCards[1] + ".avif";
-  // document.getElementById("third").src = "./Playing-Cards/" + drawCards[2] + ".avif";
-  // document.getElementById("fourth").src = "./Playing-Cards/" + drawCards[3] + ".avif";
 }
-// function drawFirst() {
-//   let faceCards = ["J", "Q", "K", "A"];
-//   let btnContainer = document.getElementById("button-area");
-//   let question = document.createElement("h2");
-//   document.getElementById("question-area").append(question);
-//   question.innerText = "What's the card's value ?";
-//   gsap.to("#first-arrow", {
-//     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-//     duration: .4,
-//     ease: "power4.in",
-//   })
-//   gsap.from("#created-content", {
-//     opacity: 0,
-//     duration: .5,
-//     ease: "power2.inOut",
-//     translateY: 250,
-//   })
-
-
-
-//   for (let i = 2; i <= 10; i++) {
-//     let btn = document.createElement("button");
-//     document.getElementById("button-area").append(btn);
-//     btn.innerText = i;
-//     btnContainer.append(btn);
-//     btn.addEventListener("click", () => firstCard(btn, question, i));
-//   }
-
-//   faceCards.forEach((faceCard) => {
-//     let btn = document.createElement("button");
-//     btn.innerText = faceCard;
-//     btnContainer.append(btn);
-//     btn.addEventListener("click", () => firstCard(btn, question, faceCard));
-//   });
-// }
 function drawFirst() {
   let colors = ["Red", "Black"];
   firstActualCard = drawCards[0];
   let firstCardType = firstActualCard.split("-")[1];
-  console.log(firstCardType)
+  console.log(firstCardType);
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
   document.getElementById("question-area").append(question);
   question.innerText = "What's the card's color ?";
   gsap.to("#first-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    duration: .4,
+    duration: 0.4,
     ease: "power4.in",
-  })
+  });
   gsap.from("#created-content", {
     opacity: 0,
-    duration: .5,
+    duration: 0.5,
     ease: "power2.inOut",
     translateY: 250,
-  })
+  });
 
   colors.forEach((color) => {
     let btn = document.createElement("button");
     btn.innerText = color;
     btnContainer.append(btn);
-    btn.addEventListener("click", () => firstCard(firstActualCard, btn, question, color, firstCardType));
+    btn.addEventListener("click", () =>
+      firstCard(firstActualCard, btn, question, color, firstCardType)
+    );
   });
 }
 function firstCard(firstActualCard, btn, question, color, firstCardType) {
   gsap.to("#first", {
     rotateY: "85",
-    duration: .2,
+    duration: 0.2,
     onComplete: () => {
       gsap.to("#first", {
         rotateY: "5",
-      })
-      document.getElementById("first").src = `./Playing-Cards/${drawCards[0]}.avif`;
-    }
-  })
+      });
+      document.getElementById(
+        "first"
+      ).src = `./Playing-Cards/${drawCards[0]}.avif`;
+    },
+  });
   gsap.to("#first-arrow", {
     clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-    duration: .3,
+    duration: 0.3,
     ease: "power1.out",
-  })
-  console.log(firstCardType)
+  });
+  console.log(firstCardType);
 
   let firstCardValue = getCardValue(firstActualCard);
   let buttonContainer = document.getElementById("button-area");
@@ -166,11 +132,11 @@ function firstCard(firstActualCard, btn, question, color, firstCardType) {
   let getSuit = firstActualCard.split("-")[0];
 
   let suitNames = {
-    "C": "Black",
-    "D": "Red",
-    "H": "Red",
-    "S": "Black",
-  }
+    C: "Black",
+    D: "Red",
+    H: "Red",
+    S: "Black",
+  };
 
   let correctAnswer = suitNames[getSuit];
 
@@ -189,15 +155,15 @@ function drawSecond(firstCardValue, firstCardType, firstCardType) {
   question.innerText = `Is the cards value higher or lower than ${firstCardType} ?`;
   gsap.to("#second-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    duration: .4,
+    duration: 0.4,
     ease: "power1.out",
-  })
+  });
   gsap.from("#created-content", {
     opacity: 0,
-    duration: .5,
+    duration: 0.5,
     ease: "power2.inOut",
     translateY: 250,
-  })
+  });
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
@@ -210,23 +176,25 @@ function drawSecond(firstCardValue, firstCardType, firstCardType) {
 }
 function secondCard(firstCardValue, question, answer, firstCardType) {
   let secondActualCard = drawCards[1];
-  let secondCardType = secondActualCard.split("-")[1]
+  let secondCardType = secondActualCard.split("-")[1];
   question.remove();
   gsap.to("#second", {
     rotateY: "85",
-    duration: .2,
+    duration: 0.2,
     onComplete: () => {
       gsap.to("#second", {
         rotateY: "5",
-      })
-      document.getElementById("second").src = `./Playing-Cards/${drawCards[1]}.avif`;
-    }
-  })
+      });
+      document.getElementById(
+        "second"
+      ).src = `./Playing-Cards/${drawCards[1]}.avif`;
+    },
+  });
   gsap.to("#second-arrow", {
     clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-    duration: .3,
+    duration: 0.3,
     ease: "power1.out",
-  })
+  });
 
   let secondCardValue = getCardValue(secondActualCard);
   let buttonContainer = document.getElementById("button-area");
@@ -241,9 +209,14 @@ function secondCard(firstCardValue, question, answer, firstCardType) {
   } else {
     document.getElementById("second").style.backgroundColor = "red";
   }
-  drawThird(firstCardValue, secondCardValue, secondCardType, firstCardType)
+  drawThird(firstCardValue, secondCardValue, secondCardType, firstCardType);
 }
-function drawThird(firstCardValue, secondCardValue, secondCardType, firstCardType) {
+function drawThird(
+  firstCardValue,
+  secondCardValue,
+  secondCardType,
+  firstCardType
+) {
   let answers = ["Between", "Outside"];
   let btnContainer = document.getElementById("button-area");
   let question = document.createElement("h2");
@@ -251,15 +224,15 @@ function drawThird(firstCardValue, secondCardValue, secondCardType, firstCardTyp
   question.innerText = `Is the cards value between or outside ${firstCardType} / ${secondCardType} ?`;
   gsap.to("#third-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    duration: .4,
+    duration: 0.4,
     ease: "power1.out",
-  })
+  });
   gsap.from("#created-content", {
     opacity: 0,
-    duration: .5,
+    duration: 0.5,
     ease: "power2.inOut",
     translateY: 250,
-  })
+  });
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
@@ -278,19 +251,21 @@ function thirdCard(firstCardValue, question, answer, secondCardValue) {
 
   gsap.to("#third", {
     rotateY: "85",
-    duration: .2,
+    duration: 0.2,
     onComplete: () => {
       gsap.to("#third", {
         rotateY: "5",
-      })
-      document.getElementById("third").src = `./Playing-Cards/${drawCards[2]}.avif`;
-    }
-  })
+      });
+      document.getElementById(
+        "third"
+      ).src = `./Playing-Cards/${drawCards[2]}.avif`;
+    },
+  });
   gsap.to("#third-arrow", {
     clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-    duration: .3,
+    duration: 0.3,
     ease: "power1.out",
-  })
+  });
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -298,8 +273,11 @@ function thirdCard(firstCardValue, question, answer, secondCardValue) {
 
   let minValue = Math.min(secondCardValue, firstCardValue);
   let maxValue = Math.max(secondCardValue, firstCardValue);
-  
-  let correctAnswer = (thirdCardValue >= minValue && thirdCardValue <= maxValue) ? "Between" : "Outside";
+
+  let correctAnswer =
+    thirdCardValue >= minValue && thirdCardValue <= maxValue
+      ? "Between"
+      : "Outside";
 
   if (answer === correctAnswer) {
     document.getElementById("third").style.backgroundColor = "green";
@@ -307,7 +285,6 @@ function thirdCard(firstCardValue, question, answer, secondCardValue) {
     document.getElementById("third").style.backgroundColor = "red";
   }
   drawFourth();
-
 }
 function drawFourth() {
   let answers = ["Clubs", "Diamonds", "Hearts", "Spades"];
@@ -317,23 +294,21 @@ function drawFourth() {
   question.innerText = "What's the card's suit ?";
   gsap.to("#fourth-arrow", {
     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    duration: .4,
+    duration: 0.4,
     ease: "power1.out",
-  })
+  });
   gsap.from("#created-content", {
     opacity: 0,
-    duration: .5,
+    duration: 0.5,
     ease: "power2.inOut",
     translateY: 250,
-  })
+  });
 
   answers.forEach((answer) => {
     let btn = document.createElement("button");
     btn.innerText = answer;
     btnContainer.append(btn);
-    btn.addEventListener("click", () =>
-      fourthCard(question, answer)
-    );
+    btn.addEventListener("click", () => fourthCard(question, answer));
   });
 }
 function fourthCard(question, answer) {
@@ -343,19 +318,21 @@ function fourthCard(question, answer) {
 
   gsap.to("#fourth", {
     rotateY: "85",
-    duration: .2,
+    duration: 0.2,
     onComplete: () => {
       gsap.to("#fourth", {
         rotateY: "5",
-      })
-      document.getElementById("fourth").src = `./Playing-Cards/${drawCards[3]}.avif`;
-    }
-  })
+      });
+      document.getElementById(
+        "fourth"
+      ).src = `./Playing-Cards/${drawCards[3]}.avif`;
+    },
+  });
   gsap.to("#fourth-arrow", {
     clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-    duration: .3,
+    duration: 0.3,
     ease: "power1.out",
-  })
+  });
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
@@ -364,11 +341,11 @@ function fourthCard(question, answer) {
   let getSuit = fourthActualCard.split("-")[0];
 
   let suitNames = {
-    "C": "Clubs",
-    "D": "Diamonds",
-    "H": "Hearts",
-    "S": "Spades",
-  }
+    C: "Clubs",
+    D: "Diamonds",
+    H: "Hearts",
+    S: "Spades",
+  };
 
   let correctAnswer = suitNames[getSuit];
 
@@ -377,8 +354,8 @@ function fourthCard(question, answer) {
   } else {
     document.getElementById("fourth").style.backgroundColor = "red";
   }
-  pointCounter()
-  setupRestartButton()
+  pointCounter();
+  setupRestartButton();
 }
 function setupRestartButton() {
   let btnContainer = document.getElementById("button-area");
@@ -390,72 +367,67 @@ function setupRestartButton() {
   btnContainer.append(btn);
   gsap.from("#created-content", {
     opacity: 0,
-    duration: .5,
+    duration: 0.5,
     ease: "power2.inOut",
     translateY: 250,
-  })
-    
-  btn.addEventListener("click", function() {
-    // Clear existing game elements
+  });
+
+  btn.addEventListener("click", function () {
     clearGame();
-    //Reset Deck
     drawCards = [];
-    // Start a new game
     playGame();
   });
 }
 function clearGame() {
-  let cardElements = document.querySelectorAll("#first, #second, #third, #fourth");
-  let arrowElements = document.querySelectorAll("#first-arrow, #second-arrow, #third-arrow, #fourth-arrow");
-  arrowElements.forEach(el => {
-    el.style.clipPath = "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)"
-  })
-  cardElements.forEach(el =>
-    {gsap.to(el, {
-    rotateY: "85",
-    duration: .2,
-    onComplete: () => {
-      gsap.to(el, {
-        rotateY: "5",
-      })
-      el.src = "Extras/BACK.avif"; 
-    }
-  })
-    el.style.backgroundColor = ""; 
+  let cardElements = document.querySelectorAll(
+    "#first, #second, #third, #fourth"
+  );
+  let arrowElements = document.querySelectorAll(
+    "#first-arrow, #second-arrow, #third-arrow, #fourth-arrow"
+  );
+  arrowElements.forEach((el) => {
+    el.style.clipPath = "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)";
   });
-  
+  cardElements.forEach((el) => {
+    gsap.to(el, {
+      rotateY: "85",
+      duration: 0.2,
+      onComplete: () => {
+        gsap.to(el, {
+          rotateY: "5",
+        });
+        el.src = "Extras/BACK.avif";
+      },
+    });
+    el.style.backgroundColor = "";
+  });
+
   let buttonContainer = document.getElementById("button-area");
   while (buttonContainer.firstChild) {
     buttonContainer.removeChild(buttonContainer.firstChild);
   }
-  
+
   let questionContainer = document.getElementById("question-area");
   while (questionContainer.firstChild) {
     questionContainer.removeChild(questionContainer.firstChild);
   }
 }
-function pointCounter(){
-  let cardElements = document.querySelectorAll("#first, #second, #third, #fourth");
+function pointCounter() {
+  let cardElements = document.querySelectorAll(
+    "#first, #second, #third, #fourth"
+  );
 
-  cardElements.forEach(card => {
+  cardElements.forEach((card) => {
     cardResult = card.style.backgroundColor;
 
-    if(cardResult === "green"){
-      points += 2
-      console.log("correct")
+    if (cardResult === "green") {
+      points += 2;
+      console.log("correct");
     } else {
-      points += 0
+      points += 0;
     }
-
-    document.getElementById("points").innerText = points
-
-      // if(points >= 5){
-      //   document.getElementById("body").style.backgroundImage = "url(./Extras/background-2.png)";
-      //   console.log("hello")
-      // }
-
-    })
-    
+    document.getElementById("points").innerText = points;
+  });
 }
 function getCardValue(card) {
   let result = card.split("-")[1];
@@ -468,4 +440,3 @@ function getCardValue(card) {
   };
   return faceCard[result] || parseInt(result);
 }
-
